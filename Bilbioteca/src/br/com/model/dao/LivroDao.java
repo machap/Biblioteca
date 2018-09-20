@@ -66,7 +66,7 @@ public class LivroDao {
                 livro.setId(rs.getInt("id"));
                 livro.setNomeLivro(rs.getString("nome_livro"));
                 livro.setAno(rs.getString("ano"));
-                livro.setNota(rs.getDouble("nota"));
+                livro.setNota(rs.getInt("nota"));
                 livro.setResenha(rs.getString("resenha"));
                 livro.setDataCadastro(rs.getDate("data_cadastro"));
                 livro.setImagem(rs.getBytes("imagem"));
@@ -80,6 +80,33 @@ public class LivroDao {
         return livros;
     }
 
+    public Livro findId(int id){
+        String sql = "SELECT * FROM tbLivros WHERE id = ?";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Livro livro = new Livro();
+        
+        try{
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            rs.next();
+            livro.setId(rs.getInt("id"));
+            livro.setNomeLivro(rs.getString("nome_livro"));
+            livro.setAno(rs.getString("ano"));
+            livro.setNota(rs.getInt("nota"));
+            livro.setResenha(rs.getString("resenha"));
+            livro.setDataCadastro(rs.getDate("data_cadastro"));
+            livro.setImagem(rs.getBytes("imagem"));
+            
+        } catch (SQLException ex) {
+            System.err.println("Erro: " + ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }        
+        return livro;        
+    }
+    
     public boolean update(Livro livro) {
         String sql = "UPDATE tbLivros SET nome_livro = ?, ano = ?, nota = ?, resenha = ?, data_cadastro = ?, imagem = ? WHERE id = ?";
         PreparedStatement stmt = null;
