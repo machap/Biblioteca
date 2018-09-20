@@ -7,7 +7,7 @@ public class Livro {
     private int id;
     private String nomeLivro;
     private String ano;
-    private double nota;
+    private int nota;
     private String resenha;
     private Date dataCadastro;
     private byte[] imagem;
@@ -15,7 +15,7 @@ public class Livro {
     public Livro() {
     }
 
-    public Livro(String nomeLivro, String ano, double notas, String resenha, Date dataCadastro) {
+    public Livro(String nomeLivro, String ano, int notas, String resenha, Date dataCadastro) {
         this.nomeLivro = nomeLivro;
         this.ano = ano;
         this.nota = notas;
@@ -23,7 +23,7 @@ public class Livro {
         this.dataCadastro = dataCadastro;
     }
 
-    public Livro(String nomeLivro, String ano, double notas, String resenha, Date dataCadastro, byte[] imagem) {
+    public Livro(String nomeLivro, String ano, int notas, String resenha, Date dataCadastro, byte[] imagem) {
         this.nomeLivro = nomeLivro;
         this.ano = ano;
         this.nota = notas;
@@ -56,11 +56,11 @@ public class Livro {
         this.ano = ano;
     }
 
-    public double getNota() {
+    public int getNota() {
         return nota;
     }
 
-    public void setNota(double nota) {
+    public void setNota(int nota) {
         this.nota = nota;
     }
 

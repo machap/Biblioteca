@@ -14,7 +14,7 @@ public class LivroTest {
     @Test
     //@Ignore
     public void testSave() {
-        Livro l = new Livro("Teste", "1994", 4.5, "test test tes", new Date());
+        Livro l = new Livro("Teste", "1994", 4, "test test tes", new Date());
         LivroDao dao = new LivroDao();
 
         if (dao.save(l)) {
@@ -44,7 +44,7 @@ public class LivroTest {
     @Test
     //@Ignore
     public void testUpdate() {
-        Livro l = new Livro("Teste9", "1994", 4.5, "test test tes", new Date());
+        Livro l = new Livro("Teste9", "1994", 5, "test test tes", new Date());
         l.setId(2);
         LivroDao dao = new LivroDao();
 
