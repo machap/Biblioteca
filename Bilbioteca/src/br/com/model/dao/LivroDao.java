@@ -2,6 +2,8 @@ package br.com.model.dao;
 
 import br.com.connection.ConnectionFactory;
 import br.com.model.bean.Livro;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -80,13 +82,13 @@ public class LivroDao {
         return livros;
     }
 
-    public Livro findId(int id){
+    public Livro findId(int id) {
         String sql = "SELECT * FROM tbLivros WHERE id = ?";
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Livro livro = new Livro();
-        
-        try{
+
+        try {
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -98,15 +100,15 @@ public class LivroDao {
             livro.setResenha(rs.getString("resenha"));
             livro.setDataCadastro(rs.getDate("data_cadastro"));
             livro.setImagem(rs.getBytes("imagem"));
-            
+
         } catch (SQLException ex) {
             System.err.println("Erro: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
-        }        
-        return livro;        
+        }
+        return livro;
     }
-    
+
     public boolean update(Livro livro) {
         String sql = "UPDATE tbLivros SET nome_livro = ?, ano = ?, nota = ?, resenha = ?, data_cadastro = ?, imagem = ? WHERE id = ?";
         PreparedStatement stmt = null;
@@ -131,10 +133,9 @@ public class LivroDao {
     }
 
     public boolean delete(Livro livro) {
-
         String sql = "DELETE FROM tbLivros WHERE id = ?";
         PreparedStatement stmt = null;
-
+        
         try {
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, livro.getId());
