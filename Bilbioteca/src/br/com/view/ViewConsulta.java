@@ -7,8 +7,17 @@ package br.com.view;
 
 import br.com.model.bean.Livro;
 import br.com.model.dao.LivroDao;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -21,17 +30,21 @@ public class ViewConsulta extends javax.swing.JFrame {
      */
     public ViewConsulta() {
         initComponents();
+
     }
-    private Livro livro;
-    
+    protected Livro livro;
+    private Image img;
+
     public void clean() {
         jtfNome.setText("");
         jtfAno.setText("");
         jcbNota.setSelectedIndex(-1);
         jtaResenha.setText("");
+        lblImagem.setText("Imagem");
         jtfCodigo.setText("");
+        lblImagem.setIcon(null);
     }
-    
+
     public boolean check() {
         if (jtfNome.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(null, "Informe o NOME", "Alerta", JOptionPane.WARNING_MESSAGE);
@@ -52,6 +65,38 @@ public class ViewConsulta extends javax.swing.JFrame {
         } else {
             return true;
         }
+    }
+
+    public Image image() {
+        BufferedImage imageBuffer = null;
+        try {
+            JFileChooser getImage = new JFileChooser();
+            getImage.setFileFilter(new FileNameExtensionFilter("Imagem", "png", "png", "jpeg", "jpg"));
+            getImage.setAcceptAllFileFilterUsed(false);
+            getImage.setDialogTitle("Selecione a imagem");
+            getImage.showOpenDialog(getImage);
+            String caminho = "" + getImage.getSelectedFile().getAbsolutePath();
+            imageBuffer = ImageIO.read(new File(caminho));
+            Image diminuirImagem = imageBuffer.getScaledInstance(150, 150, 0);
+            return diminuirImagem;
+        } catch (Exception ex) {
+            System.err.println("ERRO: " + ex);
+        }
+        return null;
+    }
+
+    public byte[] imageToByte(Image image) {
+        BufferedImage bi = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_RGB);
+        Graphics bg = bi.getGraphics();
+        bg.drawImage(image, 0, 0, null);
+        bg.dispose();
+        ByteArrayOutputStream buff = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(bi, "JPG", buff);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return buff.toByteArray();
     }
 
     /**
@@ -81,6 +126,7 @@ public class ViewConsulta extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         lblImagem = new javax.swing.JLabel();
 
@@ -162,15 +208,25 @@ public class ViewConsulta extends javax.swing.JFrame {
 
         jPanel6.setBackground(java.awt.SystemColor.desktop);
 
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel5.setForeground(java.awt.SystemColor.controlLtHighlight);
+        jLabel5.setText("Consulta de Livros");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 579, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(jLabel5)
+                .addContainerGap(203, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel5)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel7.setBackground(java.awt.SystemColor.desktop);
@@ -203,22 +259,21 @@ public class ViewConsulta extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtfAno, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(106, 106, 106)
+                                    .addComponent(jtfAno, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(29, 29, 29)
                                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,8 +281,8 @@ public class ViewConsulta extends javax.swing.JFrame {
                         .addComponent(btnBuscar)
                         .addGap(39, 39, 39)
                         .addComponent(btnGravar)
-                        .addGap(21, 21, 21))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(150, 150, 150))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel2)
@@ -237,8 +292,8 @@ public class ViewConsulta extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jcbNota, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(129, 129, 129))
+                        .addComponent(lblImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(129, 129, 129))))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -308,7 +363,7 @@ public class ViewConsulta extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 5, Short.MAX_VALUE))
         );
 
         pack();
@@ -332,23 +387,29 @@ public class ViewConsulta extends javax.swing.JFrame {
             jtfAno.setEditable(true);
             jcbNota.setEnabled(true);
             jtaResenha.setEditable(true);
-            btnEditar.setText("Guarda");
+            btnEditar.setText("Guardar");
             jtfCodigo.setEditable(false);
+            lblImagem.setEnabled(true);
             btnExcluir.setEnabled(true);
+
+            ImageIcon icon = new ImageIcon(livro.getImagem());
+            img = icon.getImage();
+
         } else if (check()) {
-            Livro livro = new Livro();
-            livro = this.livro;
+            Livro l = new Livro();
+            l = this.livro;
             LivroDao livroDao = new LivroDao();
-            livro.setNomeLivro(jtfNome.getText());
-            livro.setAno(jtfAno.getText());
-            livro.setNota(jcbNota.getSelectedIndex());
-            livro.setResenha(jtaResenha.getText());
-            
+            l.setNomeLivro(jtfNome.getText());
+            l.setAno(jtfAno.getText());
+            l.setNota(jcbNota.getSelectedIndex());
+            l.setResenha(jtaResenha.getText());
+            l.setImagem(imageToByte(img));
 
-            livro.setImagem(null);
+            System.out.println("getImage == " + l.getImagem());
+            System.out.println("image == " + img);
 
-            if (livroDao.update(livro)) {
-                JOptionPane.showMessageDialog(null, "Livro atualizar com Sucesso");
+            if (livroDao.update(l)) {
+                JOptionPane.showMessageDialog(null, "Livro atualizado com Sucesso");
             } else {
                 JOptionPane.showMessageDialog(null, "Não foi possivel atualizar");
             }
@@ -377,11 +438,11 @@ public class ViewConsulta extends javax.swing.JFrame {
                     jtfAno.setText(livro.getAno());
                     jcbNota.setSelectedIndex(livro.getNota());
                     jtaResenha.setText(livro.getResenha());
-                    
+
                     ImageIcon icon = new ImageIcon(livro.getImagem());
                     lblImagem.setText("");
                     lblImagem.setIcon(icon);
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Livro não encontrado");
                 }
@@ -400,8 +461,11 @@ public class ViewConsulta extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGravarActionPerformed
 
     private void lblImagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImagemMouseClicked
-  
-        //fasdwedacs
+        if (btnEditar.getText().equals("Guardar")) {
+            img = image();
+            lblImagem.setIcon(new ImageIcon(img));
+            lblImagem.setText("");
+        }
     }//GEN-LAST:event_lblImagemMouseClicked
 
     /**
@@ -448,6 +512,7 @@ public class ViewConsulta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;

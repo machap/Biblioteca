@@ -40,6 +40,7 @@ public class ViewCadastro extends javax.swing.JFrame {
         jcbNota.setSelectedIndex(-1);
         jtaResenha.setText("");
         lblImagem.setText("Imagem");
+        lblImagem.setIcon(null);
     }
 
     public boolean check() {
@@ -118,6 +119,7 @@ public class ViewCadastro extends javax.swing.JFrame {
         btnGravar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         lblImagem = new javax.swing.JLabel();
 
@@ -175,15 +177,25 @@ public class ViewCadastro extends javax.swing.JFrame {
 
         jPanel2.setBackground(java.awt.SystemColor.desktop);
 
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel5.setForeground(java.awt.SystemColor.controlLtHighlight);
+        jLabel5.setText("Cadastro de Livros");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(187, 187, 187)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel5)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(java.awt.SystemColor.desktop);
@@ -276,7 +288,7 @@ public class ViewCadastro extends javax.swing.JFrame {
                             .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(34, 34, 34)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 5, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -307,11 +319,12 @@ public class ViewCadastro extends javax.swing.JFrame {
 
             if (livroDao.save(livro)) {
                 JOptionPane.showMessageDialog(null, "Livro guardado com Sucesso");
+                clean();
             } else {
                 JOptionPane.showMessageDialog(null, "Não foi possivel guardar");
             }
         }
-        clean();
+        
     }//GEN-LAST:event_btnGravarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -367,6 +380,7 @@ public class ViewCadastro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
