@@ -39,6 +39,7 @@ public class ViewCadastro extends javax.swing.JFrame {
         jtfAno.setText("");
         jcbNota.setSelectedIndex(-1);
         jtaResenha.setText("");
+        lblImagem.setText("Imagem");
     }
 
     public boolean check() {
@@ -67,7 +68,7 @@ public class ViewCadastro extends javax.swing.JFrame {
         BufferedImage imageBuffer = null;
         try {
             JFileChooser getImage = new JFileChooser();
-            getImage.setFileFilter(new FileNameExtensionFilter("Imagem", "png", "png", "jpeg"));
+            getImage.setFileFilter(new FileNameExtensionFilter("Imagem", "png", "png", "jpeg", "jpg"));
             getImage.setAcceptAllFileFilterUsed(false);
             getImage.setDialogTitle("Selecione a imagem");
             getImage.showOpenDialog(getImage);
@@ -310,6 +311,7 @@ public class ViewCadastro extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Não foi possivel guardar");
             }
         }
+        clean();
     }//GEN-LAST:event_btnGravarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -317,9 +319,9 @@ public class ViewCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void lblImagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImagemMouseClicked
-        lblImagem.setText("");        
-        lblImagem.setIcon(new ImageIcon(img));
+        lblImagem.setText("");    
         img = image();
+        lblImagem.setIcon(new ImageIcon(img));
     }//GEN-LAST:event_lblImagemMouseClicked
 
     /**

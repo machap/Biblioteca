@@ -7,6 +7,7 @@ package br.com.view;
 
 import br.com.model.bean.Livro;
 import br.com.model.dao.LivroDao;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -185,14 +186,19 @@ public class ViewTodos extends javax.swing.JFrame {
         try {
             DefaultTableModel model = (DefaultTableModel) jtRegistros.getModel();
             int id = (int) model.getValueAt(jtRegistros.getSelectedRow(), 0);
-
+            
             Livro l = livroDao.findId(id);
             vc.jtfCodigo.setText(String.valueOf(l.getId()));
             vc.jtfNome.setText(l.getNomeLivro());
             vc.jtfAno.setText(l.getAno());
-            vc.jcbNota.setSelectedItem(l.getAno());
+            vc.jcbNota.setSelectedIndex(l.getNota());
             vc.jtaResenha.setText(l.getResenha());
+            
+            ImageIcon icon = new ImageIcon(l.getImagem());
+            vc.lblImagem.setText("");
+            vc.lblImagem.setIcon(icon);
 
+            vc.btnEditar.setEnabled(true);
             vc.setVisible(true);
             dispose();
         } catch (Exception e) {
