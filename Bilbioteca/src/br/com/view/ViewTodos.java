@@ -77,7 +77,7 @@ public class ViewTodos extends javax.swing.JFrame {
             .addGap(0, 373, Short.MAX_VALUE)
         );
 
-        jPanel3.setBackground(java.awt.SystemColor.desktop);
+        jPanel3.setBackground(new java.awt.Color(0, 102, 153));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel5.setForeground(java.awt.SystemColor.controlLtHighlight);
@@ -132,7 +132,7 @@ public class ViewTodos extends javax.swing.JFrame {
             jtRegistros.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        jPanel4.setBackground(java.awt.SystemColor.desktop);
+        jPanel4.setBackground(new java.awt.Color(0, 102, 153));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);

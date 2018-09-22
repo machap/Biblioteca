@@ -5,6 +5,13 @@
  */
 package br.com.view;
 
+import br.com.connection.ConnectionFactory;
+import java.sql.Connection;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author paulo
@@ -18,6 +25,19 @@ public class ViewMenu extends javax.swing.JFrame {
         initComponents();
     }
 
+    public void relatorio(){        
+        Connection con = ConnectionFactory.getConnection();
+        String src = "livros.jasper";        
+        JasperPrint jasperPrint = null;
+        try {
+            jasperPrint = JasperFillManager.fillReport(src, null, con);
+        } catch (JRException ex) {
+            System.err.println("Erro: " + ex);
+        }        
+        JasperViewer view = new JasperViewer(jasperPrint, false);        
+        view.setVisible(true);
+    }                         
+       
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,16 +58,26 @@ public class ViewMenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        jmiCadastrar = new javax.swing.JMenuItem();
+        jmiConsultar = new javax.swing.JMenuItem();
+        jmiSair = new javax.swing.JMenuItem();
+        jmiRelatorio = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Biblioteca Menu Principal");
         setResizable(false);
         setSize(new java.awt.Dimension(720, 640));
 
-        jPanel2.setBackground(java.awt.SystemColor.desktop);
+        jPanel2.setBackground(new java.awt.Color(0, 102, 153));
 
-        jButton1.setText("Informação");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icon/information.png"))); // NOI18N
+        jButton1.setText("Relatório");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         btnCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icon/add.png"))); // NOI18N
         btnCadastro.setText("Cadastrar");
@@ -162,11 +192,49 @@ public class ViewMenu extends javax.swing.JFrame {
 
         jMenuBar1.setForeground(new java.awt.Color(255, 255, 255));
 
-        jMenu1.setText("File");
+        jMenu1.setText("Menu");
+
+        jmiCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icon/add.png"))); // NOI18N
+        jmiCadastrar.setText("Cadastrar");
+        jmiCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCadastrarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiCadastrar);
+
+        jmiConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icon/magnifier.png"))); // NOI18N
+        jmiConsultar.setText("Consultar");
+        jmiConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiConsultarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiConsultar);
+
+        jmiSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icon/cross.png"))); // NOI18N
+        jmiSair.setText("Sair");
+        jmiSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSairActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiSair);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jmiRelatorio.setText("Relatorios");
+
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icon/information.png"))); // NOI18N
+        jMenuItem4.setText("Livros");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jmiRelatorio.add(jMenuItem4);
+
+        jMenuBar1.add(jmiRelatorio);
 
         setJMenuBar(jMenuBar1);
 
@@ -194,6 +262,26 @@ public class ViewMenu extends javax.swing.JFrame {
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
         new ViewCadastro().setVisible(true);
     }//GEN-LAST:event_btnCadastroActionPerformed
+
+    private void jmiSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jmiSairActionPerformed
+
+    private void jmiCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastrarActionPerformed
+        new ViewCadastro().setVisible(true);
+    }//GEN-LAST:event_jmiCadastrarActionPerformed
+
+    private void jmiConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiConsultarActionPerformed
+        new ViewConsulta().setVisible(true);
+    }//GEN-LAST:event_jmiConsultarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        relatorio();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        relatorio();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,11 +325,15 @@ public class ViewMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JMenuItem jmiCadastrar;
+    private javax.swing.JMenuItem jmiConsultar;
+    private javax.swing.JMenu jmiRelatorio;
+    private javax.swing.JMenuItem jmiSair;
     // End of variables declaration//GEN-END:variables
 }

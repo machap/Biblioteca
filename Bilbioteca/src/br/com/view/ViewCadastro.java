@@ -175,7 +175,7 @@ public class ViewCadastro extends javax.swing.JFrame {
             }
         });
 
-        jPanel2.setBackground(java.awt.SystemColor.desktop);
+        jPanel2.setBackground(new java.awt.Color(0, 102, 153));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel5.setForeground(java.awt.SystemColor.controlLtHighlight);
@@ -198,7 +198,7 @@ public class ViewCadastro extends javax.swing.JFrame {
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        jPanel5.setBackground(java.awt.SystemColor.desktop);
+        jPanel5.setBackground(new java.awt.Color(0, 102, 153));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);

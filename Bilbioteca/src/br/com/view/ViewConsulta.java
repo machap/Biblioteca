@@ -206,7 +206,7 @@ public class ViewConsulta extends javax.swing.JFrame {
             }
         });
 
-        jPanel6.setBackground(java.awt.SystemColor.desktop);
+        jPanel6.setBackground(new java.awt.Color(0, 102, 153));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel5.setForeground(java.awt.SystemColor.controlLtHighlight);
@@ -229,7 +229,7 @@ public class ViewConsulta extends javax.swing.JFrame {
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        jPanel7.setBackground(java.awt.SystemColor.desktop);
+        jPanel7.setBackground(new java.awt.Color(0, 102, 153));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
