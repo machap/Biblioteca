@@ -8,7 +8,6 @@ package br.com.view;
 import br.com.model.bean.Livro;
 import br.com.model.dao.LivroDao;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *

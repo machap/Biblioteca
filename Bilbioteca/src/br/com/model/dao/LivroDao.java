@@ -2,8 +2,6 @@ package br.com.model.dao;
 
 import br.com.connection.ConnectionFactory;
 import br.com.model.bean.Livro;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
