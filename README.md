@@ -2,9 +2,9 @@
 Projeto simples para representar as ações de CRUD, através de um cadastro de livros.
 
 * ### Tecnologias Utilizadas:
-  - SGBD MySql.
-  - JDBC para persistir dados.
-  - Jasper Reports para criação de relatorios.
+  - SGBD MySql (version 14.14 Distrib 5.7.23).
+  - JDBC para persistir dados (mysql-connector-java-5.1.45-bin).
+  - Jasper Reports para criação de relatorios (iReport 5.6.0).
   - JUnit para teste.
 
 * ### Arquivos necessarios:
